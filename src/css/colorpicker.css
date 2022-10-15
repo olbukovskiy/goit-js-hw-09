@@ -1,0 +1,14 @@
+.wrapper {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+[data-start],
+[data-stop] {
+  width: 200px;
+  height: 80px;
+  border-radius: 10px;
+  font-size: 20px;
+}
