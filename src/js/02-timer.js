@@ -13,11 +13,11 @@ const refs = {
   sec: document.querySelector('[data-seconds]'),
 };
 
-const { dateInput, day, hour, min, sec, startBtn, stopBtn } = refs;
+const { dateInput, day, hour, min, sec, startBtn } = refs;
 let intervalId = null;
 let isActive = false;
 let deltaTime = 0;
-
+let selDate = [];
 startBtn.setAttribute('disabled', 'true');
 
 const options = {
@@ -25,7 +25,9 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates) {
+  onClose(selectedDates, dateStr) {
+
+    console.log(dateStr);
     if (selectedDates[0] < Date.now()) {
       Report.failure(
         'Invalid data!',
