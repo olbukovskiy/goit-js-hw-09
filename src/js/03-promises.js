@@ -3,8 +3,7 @@ import 'notiflix/dist/notiflix-3.2.5.min.css';
 
 const formField = document.querySelector('.form');
 let timerId = null;
-let counter = 0;
-let pos = 0;
+// let counter = 0;
 
 formField.addEventListener('submit', submitHandler);
 
@@ -16,12 +15,8 @@ function submitHandler(event) {
 
   let del = Number(delay.value);
 
-  // console.log('Это начальная задержка: ', del);
-
-  while (counter < amount.value) {
-    counter++;
-
-    createPromise(counter, del)
+  for (let i = 1; i <= amount.value; i += 1) {
+    createPromise(i, del)
       .then(({ position, delay }) => {
         Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
@@ -31,7 +26,21 @@ function submitHandler(event) {
 
     del += Number(step.value);
   }
-  counter = 0;
+
+  // while (counter < amount.value) {
+  //   counter++;
+
+  //   createPromise(counter, del)
+  //     .then(({ position, delay }) => {
+  //       Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  //     })
+  //     .catch(({ position, delay }) => {
+  //       Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
+  //     });
+
+  //   del += Number(step.value);
+  // }
+  // counter = 0;
   event.currentTarget.reset();
 }
 

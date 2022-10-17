@@ -12,8 +12,8 @@ const refs = {
   min: document.querySelector('[data-minutes]'),
   sec: document.querySelector('[data-seconds]'),
 };
-
 const { dateInput, day, hour, min, sec, startBtn } = refs;
+
 let intervalId = null;
 let isActive = false;
 let deltaTime = 0;
@@ -25,9 +25,7 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  onClose(selectedDates, dateStr) {
-
-    console.log(dateStr);
+  onClose(selectedDates) {
     if (selectedDates[0] < Date.now()) {
       Report.failure(
         'Invalid data!',
@@ -56,6 +54,12 @@ function timerCreator(time) {
     intervalId = setInterval(() => {
       const currentTime = Date.now();
       deltaTime = time - currentTime;
+
+      if (deltaTime < 0) {
+        clearInterval(intervalId);
+        return;
+      }
+
       const convertedTime = convertMs(deltaTime);
       clockFaceUpdate(convertedTime);
     }, 1000);
